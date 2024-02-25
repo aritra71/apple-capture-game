@@ -59,7 +59,7 @@ main {
 }
 
 .gameUI {
-  background-image: url("public/assets/bg1.png");
+  background-image: url("public/assets/Fish-Game-BG-3.png");
   width: 410px;
   height: 605px;
   background-color: var(--accClr);
@@ -82,16 +82,20 @@ main {
 
 #gameEndDiv {
   display: none;
+  color: #ffe400;
+  padding-top: 200px;
 }
 
 #gameStartBtn{
-  display: inline-block;
+  /* display: inline-block;
   width: 100px;
   padding:8px 15px;
   margin: 20px 0;
   text-align: center;
   font-family: inherit;
-  border-radius: 10px;;
+  border-radius: 10px;; */
+  margin-top: 300px;
+  /* background: none; */
 }
 
 #gameStartBtn p{
@@ -99,8 +103,9 @@ main {
 }
 
 #gameStartBtn:hover{
-  background-color: var(--dkClr);
+  /* background-color: var(--dkClr);
   border: 0.5px solid var(--liClr);
-  color: var(--liClr);
+  color: var(--liClr); */
   cursor:pointer;
+  transform: translateY(-2px);
 }

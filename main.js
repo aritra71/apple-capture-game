@@ -37,13 +37,12 @@ class GameScene extends Phaser.Scene {
     this.load.image("bg", "/assets/bg1.png");
     this.load.image("basket", "/assets/boat.png");
     this.load.image("apple", "/assets/fish.png");
-    this.load.image("money", "/assets/bg1.png");
+    this.load.image("money", "/assets/one.png");
     this.load.audio("coin", "/assets/coin.mp3");
     this.load.audio("bgMusic", "/assets/bgMusic.mp3");
   }
 
   create() {
-
     this.scene.pause("scene-game")
 
     this.coinMusic = this.sound.add("coin")
@@ -70,11 +69,11 @@ class GameScene extends Phaser.Scene {
 
     this.textScore = this.add.text(sizes.width - 120, 10, "Score:0", {
       font: "25px Arial",
-      fill: "#000000",
+      fill: "#ffe400",
     });
-    this.textTime = this.add.text(10, 10, "Remaining Time: 00", {
+    this.textTime = this.add.text(10, 10, "Time: 00", {
       font: "25px Arial",
-      fill: "#000000",
+      fill: "#ffe400",
     });
 
     this.timedEvent = this.time.delayedCall(30000,this.gameOver,[], this)
@@ -87,12 +86,13 @@ class GameScene extends Phaser.Scene {
       emitting:false
     })
     this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2,true);
+    
 
   }
 
   update() {
     this.remainingTime=this.timedEvent.getRemainingSeconds()
-    this.textTime.setText(`Remaining Time: ${Math.round(this.remainingTime).toString()}`)
+    this.textTime.setText(`Time: ${Math.round(this.remainingTime).toString()}`)
 
 
     if (this.target.y >= sizes.height) {
