@@ -2,11 +2,11 @@ import "./style.css";
 import Phaser from "phaser";
 
 const sizes = {
-  width: 500,
-  height: 500,
+  width: 409,
+  height: 604,
 };
 
-const speedDown = 300;
+const speedDown = 500;
 
 const gameStartDiv = document.querySelector("#gameStartDiv")
 const gameStartBtn = document.querySelector("#gameStartBtn")
@@ -34,10 +34,10 @@ class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("bg", "/assets/bg.png");
-    this.load.image("basket", "/assets/basket.png");
-    this.load.image("apple", "/assets/apple.png");
-    this.load.image("money", "/assets/money.png");
+    this.load.image("bg", "/assets/bg1.png");
+    this.load.image("basket", "/assets/boat.png");
+    this.load.image("apple", "/assets/fish.png");
+    this.load.image("money", "/assets/bg1.png");
     this.load.audio("coin", "/assets/coin.mp3");
     this.load.audio("bgMusic", "/assets/bgMusic.mp3");
   }
@@ -112,7 +112,7 @@ class GameScene extends Phaser.Scene {
   }
 
   getRandomX() {
-    return Math.floor(Math.random() * 480);
+    return Math.floor(Math.random() * 280);
   }
 
   targetHit() {
@@ -128,11 +128,11 @@ class GameScene extends Phaser.Scene {
     this.sys.game.destroy(true)
     if(this.points >=10){
       gameEndScoreSpan.textContent = this.points
-      gameWinLoseSpan.textContent= "Win! 😊"
+      gameWinLoseSpan.textContent= "Win!"
 
     }else{
       gameEndScoreSpan.textContent = this.points
-      gameWinLoseSpan.textContent= "Lose! 😭"
+      gameWinLoseSpan.textContent= "Lose!"
     }
 
     gameEndDiv.style.display="flex"
