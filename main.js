@@ -7,7 +7,7 @@ const sizes = {
 };
 
 const speedDown = 500;
-const touchPlayerSpeed = speedDown + 200; // Adjust this value as needed for touch control speed
+const touchPlayerSpeed = speedDown + 3500; // Adjust this value as needed for touch control speed
 
 const gameStartDiv = document.querySelector("#gameStartDiv")
 const gameStartBtn = document.querySelector("#gameStartBtn")
