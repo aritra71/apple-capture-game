@@ -2,7 +2,7 @@ import "./style.css";
 import Phaser from "phaser";
 
 const sizes = {
-  width: 400,
+  width: 380,
   height: 604,
 };
 
