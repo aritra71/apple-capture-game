@@ -2,18 +2,19 @@ import "./style.css";
 import Phaser from "phaser";
 
 const sizes = {
-  width: 409,
+  width: 400,
   height: 604,
 };
 
 const speedDown = 500;
-const touchPlayerSpeed = speedDown + 3500; // Adjust this value as needed for touch control speed
+const touchPlayerSpeed = speedDown + 6000; // Adjust this value as needed for touch control speed
 
-const gameStartDiv = document.querySelector("#gameStartDiv")
-const gameStartBtn = document.querySelector("#gameStartBtn")
-const gameEndDiv = document.querySelector("#gameEndDiv")
-const gameWinLoseSpan = document.querySelector("#gameWinLoseSpan")
-const gameEndScoreSpan = document.querySelector("#gameEndScoreSpan")
+const gameStartDiv = document.querySelector("#gameStartDiv");
+const gameStartBtn = document.querySelector("#gameStartBtn");
+const gameEndDiv = document.querySelector("#gameEndDiv");
+const gameWinLoseSpan = document.querySelector("#gameWinLoseSpan");
+const gameEndScoreSpan = document.querySelector("#gameEndScoreSpan");
+const restartBtn = document.querySelector("#restartBtn");
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -22,14 +23,14 @@ class GameScene extends Phaser.Scene {
     this.cursor;
     this.playerSpeed = speedDown + 50;
     this.target;
-    this.points = 0
-    this.textScore
-    this.textTime
-    this.timedEvent
-    this.remainingTime
-    this.coinMusic
-    this.bgMusic
-    this.emitter
+    this.points = 0;
+    this.textScore;
+    this.textTime;
+    this.timedEvent;
+    this.remainingTime;
+    this.coinMusic;
+    this.bgMusic;
+    this.emitter;
   }
 
   preload() {
@@ -42,11 +43,11 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.pause("scene-game")
+    this.scene.pause("scene-game");
 
-    this.coinMusic = this.sound.add("coin")
-    this.bgMusic=this.sound.add("bgMusic")
-    this.bgMusic.play()
+    this.coinMusic = this.sound.add("coin");
+    this.bgMusic = this.sound.add("bgMusic");
+    this.bgMusic.play();
 
     this.add.image(0, 0, "bg").setOrigin(0, 0);
     this.player = this.physics.add
@@ -55,12 +56,14 @@ class GameScene extends Phaser.Scene {
     this.player.setImmovable(true);
     this.player.body.allowGravity = false;
     this.player.setCollideWorldBounds(true);
-    this.player.setSize(this.player.width-this.player.width/10, this.player.height/10).setOffset(this.player.width/10, this.player.height - this.player.height/10);
+    this.player
+      .setSize(this.player.width - this.player.width / 10, this.player.height / 10)
+      .setOffset(this.player.width / 10, this.player.height - this.player.height / 10);
 
     this.target = this.physics.add.image(0, 0, "apple").setOrigin(0, 0);
     this.target.setMaxVelocity(0, speedDown);
 
-    this.physics.add.overlap(this.target,this.player,this.targetHit, null, this)
+    this.physics.add.overlap(this.target, this.player, this.targetHit, null, this);
 
     this.cursor = this.input.keyboard.createCursorKeys();
 
@@ -73,23 +76,23 @@ class GameScene extends Phaser.Scene {
       fill: "#ffe400",
     });
 
-    this.timedEvent = this.time.delayedCall(30000,this.gameOver,[], this)
+    this.timedEvent = this.time.delayedCall(30000, this.gameOver, [], this); //made a change here
 
-    this.emitter=this.add.particles(0,0,"money",{
-      speed:100,
-      gravityY:speedDown-200,
-      scale:0.04,
-      duration:100,
-      emitting:false
-    })
-    this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2,true);
-    
+    this.emitter = this.add.particles(0, 0, "money", {
+      speed: 100,
+      gravityY: speedDown - 200,
+      scale: 0.04,
+      duration: 100,
+      emitting: false,
+    });
+    this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2, true);
+
     // Touch input handling
     this.input.on('pointerdown', (pointer) => {
       if (pointer.x < sizes.width / 2) {
-          this.player.setVelocityX(-touchPlayerSpeed);
+        this.player.setVelocityX(-touchPlayerSpeed);
       } else {
-          this.player.setVelocityX(touchPlayerSpeed);
+        this.player.setVelocityX(touchPlayerSpeed);
       }
     });
 
@@ -99,12 +102,12 @@ class GameScene extends Phaser.Scene {
   }
 
   update() {
-    this.remainingTime=this.timedEvent.getRemainingSeconds()
-    this.textTime.setText(`Time: ${Math.round(this.remainingTime).toString()}`)
+    this.remainingTime = this.timedEvent.getRemainingSeconds();
+    this.textTime.setText(`Time: ${Math.round(this.remainingTime).toString()}`);
 
     if (this.target.y >= sizes.height) {
       this.target.setY(0);
-      this.target.setX(this.getRandomX())
+      this.target.setX(this.getRandomX());
     }
 
     // Keyboard input handling
@@ -122,25 +125,25 @@ class GameScene extends Phaser.Scene {
   }
 
   targetHit() {
-    this.coinMusic.play()
-    this.emitter.start()
+    this.coinMusic.play();
+    this.emitter.start();
     this.target.setY(0);
     this.target.setX(this.getRandomX());
     this.points++;
-    this.textScore.setText(`Score: ${this.points}`)
+    this.textScore.setText(`Score: ${this.points}`);
   }
 
-  gameOver(){
-    this.sys.game.destroy(true)
-    if(this.points >=10){
-      gameEndScoreSpan.textContent = this.points
-      gameWinLoseSpan.textContent= "Win!"
-    }else{
-      gameEndScoreSpan.textContent = this.points
-      gameWinLoseSpan.textContent= "Lose!"
+  gameOver() {
+    this.sys.game.destroy(true);
+    if (this.points >= 10) {
+      gameEndScoreSpan.textContent = this.points;
+      gameWinLoseSpan.textContent = "Win!";
+    } else {
+      gameEndScoreSpan.textContent = this.points;
+      gameWinLoseSpan.textContent = "Lose!";
     }
 
-    gameEndDiv.style.display="flex"
+    gameEndDiv.style.display = "flex";
   }
 
 }
@@ -162,7 +165,23 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-gameStartBtn.addEventListener("click", ()=>{
-  gameStartDiv.style.display="none"
-  game.scene.resume("scene-game")
+gameStartBtn.addEventListener("click", () => {
+  gameStartDiv.style.display = "none";
+  game.scene.resume("scene-game");
 });
+
+// Add event listener for the restart button
+// restartBtn.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   game.scene.stop("scene-game");
+//   game.scene.start("scene-game");
+//   gameEndDiv.style.display = "none";
+//   gameStartDiv.style.display = "flex";
+// });
+
+// Add event listener for the refresh button
+refreshBtn.addEventListener("click", () => {
+  location.reload(); // Reload the page
+});
+
+

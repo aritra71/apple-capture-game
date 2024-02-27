@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/Fish-Catching-GAme-ICon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fish Catcher</title>
-  </head>
-  <body>
-    <main>
-      <canvas id="gameCanvas"></canvas>
-      <div id="gameStartDiv" class="gameUI">
-        <img src="public/assets/Play-Button.png" button id="gameStartBtn" alt="">
-      </div>
-      <div id="gameEndDiv" class="gameUI">
-        <p>Game Over</p>
-        <h1>You <span id="gameWinLoseSpan"></span></h1>
-        <h1>Final Score: <span id="gameEndScoreSpan"></span></h1>
-        <p>Refresh the Page to play again</p>
-      </div>
-      </div>
-    </main>
-    <script type="module" src="/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/assets/Fish-Catching-GAme-ICon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fish Catcher</title>
+</head>
+<body>
+  <main>
+    <canvas id="gameCanvas"></canvas>
+    <div id="gameStartDiv" class="gameUI">
+      <img src="public/assets/Play-Button.png" button id="gameStartBtn" alt="">
+    </div>
+    <div id="gameEndDiv" class="gameUI">
+      <p>Game Over</p>
+      <h1>You <span id="gameWinLoseSpan"></span></h1>
+      <h1>Final Score: <span id="gameEndScoreSpan"></span></h1>
+      <p>Click the button to play again</p>
+      <!-- <button id="restartBtn">Restart</button>
+      <button id="">Refresh Page</button> -->
+      <img src="public/assets/Restart-Button.png" button id="refreshBtn" alt="">
+    </div>
+  </main>
+  <script type="module" src="/main.js"></script>
+</body>
 </html>

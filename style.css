@@ -149,3 +149,15 @@ main {
   cursor:pointer;
   transform: translateY(-2px);
 }
+
+#refreshBtn{
+  width: 50px;
+  height: 50px;
+  /* padding: 10px; */
+  margin-top: 10px;
+}
+
+#refreshBtn:hover{
+  cursor:pointer;
+  transform: translateY(-2px);
+}
