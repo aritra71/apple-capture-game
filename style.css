@@ -24,41 +24,41 @@ body {
   min-height: 100vh;
 }
 
-a, a:visited ,
-a:hover, a:active{
+  a, a:visited ,
+  a:hover, a:active{
   color: var(--liClr);
 }
-
-
-/* header,
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-footer{
-  display: flex;
-  flex-direction: column;
-} */
 
 main {
   flex: 1;
   display: flex;
 }
 
-#gameCanvas {
-  /* border: 1px solid red; */
+/* #gameCanvas {
+  border: 1px solid red;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   z-index: 1;
-}
+} */
+/* #gameCanvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; 
+  max-width: 400px; 
+  max-height: 90vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  z-index: 1;
+} */
 
-.gameUI {
+
+/* .gameUI {
   background-image: url("public/assets/Fish-Game-BG-3.png");
   width: 410px;
   height: 605px;
@@ -69,7 +69,47 @@ main {
   justify-content: center;
   align-items: center;
   z-index: 2;
+} */
+/* .gameUI {
+  background-image: url("public/assets/Fish-Game-BG-3.png");
+  width: 90%; 
+  max-width: 409px; 
+  max-height: 90vh; 
+  background-color: var(--accClr);
+  margin: 20px auto; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+  z-index: 2;
+} */
+#gameCanvas,
+.gameUI {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 604px;
 }
+
+#gameCanvas {
+  z-index: 1;
+}
+
+.gameUI {
+  background-image: url("public/assets/Fish-Game-BG-3.png");
+  /* background-color: var(--accClr); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+
+
 
 .gameUI * {
   text-align: center;

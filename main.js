@@ -7,14 +7,13 @@ const sizes = {
 };
 
 const speedDown = 500;
+const touchPlayerSpeed = speedDown + 200; // Adjust this value as needed for touch control speed
 
 const gameStartDiv = document.querySelector("#gameStartDiv")
 const gameStartBtn = document.querySelector("#gameStartBtn")
 const gameEndDiv = document.querySelector("#gameEndDiv")
 const gameWinLoseSpan = document.querySelector("#gameWinLoseSpan")
 const gameEndScoreSpan = document.querySelector("#gameEndScoreSpan")
-
-
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -48,8 +47,6 @@ class GameScene extends Phaser.Scene {
     this.coinMusic = this.sound.add("coin")
     this.bgMusic=this.sound.add("bgMusic")
     this.bgMusic.play()
-    // this.bgMusic.stop()
-
 
     this.add.image(0, 0, "bg").setOrigin(0, 0);
     this.player = this.physics.add
@@ -58,7 +55,7 @@ class GameScene extends Phaser.Scene {
     this.player.setImmovable(true);
     this.player.body.allowGravity = false;
     this.player.setCollideWorldBounds(true);
-    this.player.setSize(this.player.width-this.player.width/4, this.player.height/6).setOffset(this.player.width/10, this.player.height - this.player.height/10);
+    this.player.setSize(this.player.width-this.player.width/10, this.player.height/10).setOffset(this.player.width/10, this.player.height - this.player.height/10);
 
     this.target = this.physics.add.image(0, 0, "apple").setOrigin(0, 0);
     this.target.setMaxVelocity(0, speedDown);
@@ -87,24 +84,33 @@ class GameScene extends Phaser.Scene {
     })
     this.emitter.startFollow(this.player, this.player.width / 2, this.player.height / 2,true);
     
+    // Touch input handling
+    this.input.on('pointerdown', (pointer) => {
+      if (pointer.x < sizes.width / 2) {
+          this.player.setVelocityX(-touchPlayerSpeed);
+      } else {
+          this.player.setVelocityX(touchPlayerSpeed);
+      }
+    });
 
+    this.input.on('pointerup', () => {
+      this.player.setVelocityX(0);
+    });
   }
 
   update() {
     this.remainingTime=this.timedEvent.getRemainingSeconds()
     this.textTime.setText(`Time: ${Math.round(this.remainingTime).toString()}`)
 
-
     if (this.target.y >= sizes.height) {
       this.target.setY(0);
       this.target.setX(this.getRandomX())
     }
 
-    const { left, right } = this.cursor;
-
-    if (left.isDown) {
+    // Keyboard input handling
+    if (this.cursor.left.isDown) {
       this.player.setVelocityX(-this.playerSpeed);
-    } else if (right.isDown) {
+    } else if (this.cursor.right.isDown) {
       this.player.setVelocityX(this.playerSpeed);
     } else {
       this.player.setVelocityX(0);
@@ -129,7 +135,6 @@ class GameScene extends Phaser.Scene {
     if(this.points >=10){
       gameEndScoreSpan.textContent = this.points
       gameWinLoseSpan.textContent= "Win!"
-
     }else{
       gameEndScoreSpan.textContent = this.points
       gameWinLoseSpan.textContent= "Lose!"
@@ -160,4 +165,4 @@ const game = new Phaser.Game(config);
 gameStartBtn.addEventListener("click", ()=>{
   gameStartDiv.style.display="none"
   game.scene.resume("scene-game")
-})
+});
